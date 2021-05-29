@@ -3,7 +3,7 @@ from scipy.integrate import solve_ivp
 import numpy as np
 
 
-# v = Initail points of vortices [x0,y0,x1,y1...]
+# v = Initial points of vortices [x0,y0,x1,y1...]
 # gamma = Strengths for points 0,1,2..
 # t = time endpoint
 # res = Number of equally spaced time points
@@ -20,7 +20,10 @@ def rhs(s, v):
     y = v[1::2]
     
     # implement ODE for each pair x_alpha, y_alpha
-    fn =  [[-1/(2*np.pi)*sum(gamma[k]*(y[i]-y[k])/((x[i]-x[k])**2+(y[i]-y[k])**2) for k in range(len(x)) if k!=i), 1/(2*np.pi)*sum(gamma[k]*(x[i]-x[k])/((x[i]-x[k])**2+(y[i]-y[k])**2) for k in range(len(x)) if k!=i)] for i in range(len(pairs))]
+    fn =  [[
+        -1/(2*np.pi)*sum(gamma[k]*(y[i]-y[k])/((x[i]-x[k])**2+(y[i]-y[k])**2) for k in range(len(x)) if k!=i), 
+        1/(2*np.pi)*sum(gamma[k]*(x[i]-x[k])/((x[i]-x[k])**2+(y[i]-y[k])**2) for k in range(len(x)) if k!=i)
+        ] for i in range(len(pairs))]
     return [item for sub in fn for item in sub]
 
 
