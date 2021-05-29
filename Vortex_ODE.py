@@ -17,7 +17,6 @@ def rhs(s, v):
     pairs = [v[i:i+2] for i in range(0, len(v), 2)]
     x = v[::2]
     y = v[1::2]
-    #return [[1/(2*np.pi)*sum(gamma[k]*(y[i]-y[k])/((x[i]-x[k])**2+(y[i]-y[k])**2) for k in range(len(x)) if k!=i), 1/(2*np.pi)*sum(gamma[k]*(x[j]-x[k])/((x[j]-x[k])**2+(y[j]-y[k])**2) for k in range(len(x)) if k!=j)] for i,j in pairs]
     fn =  [[-1/(2*np.pi)*sum(gamma[k]*(y[i]-y[k])/((x[i]-x[k])**2+(y[i]-y[k])**2) for k in range(len(x)) if k!=i), 1/(2*np.pi)*sum(gamma[k]*(x[i]-x[k])/((x[i]-x[k])**2+(y[i]-y[k])**2) for k in range(len(x)) if k!=i)] for i in range(len(pairs))]
     return [item for sub in fn for item in sub]
 
