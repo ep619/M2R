@@ -9,8 +9,8 @@ import numpy as np
 # res = Number of equally spaced time points
 
 v = [1,0, np.cos(2*np.pi/3),np.sin(2*np.pi/3), np.cos(2*np.pi/3),np.sin(-2*np.pi/3)]
-gamma = [1, 3, -1]
-t = 20
+gamma = [8, 8, 8]
+t = 2
 res = 500
 
 
@@ -27,7 +27,7 @@ def rhs(s, v):
     return [item for sub in fn for item in sub]
 
 
-a = solve_ivp(rhs, (0,t), v, t_eval = np.linspace(0,t,res))
+a = solve_ivp(rhs, (0,t), v, t_eval=np.linspace(0,t,res))
 
 
 #Plot figure of paths
@@ -36,4 +36,5 @@ plt.figure()
 plt.plot(v[::2], v[1::2], 'o')
 for i in range(0, len(v), 2):
     plt.plot(a.y[i], a.y[i+1])
+plt.axis('equal')
 plt.show()
