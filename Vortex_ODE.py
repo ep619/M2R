@@ -8,9 +8,9 @@ import numpy as np
 # t = time endpoint
 # res = Number of equally spaced time points
 
-v = [1,0, np.cos(2*np.pi/3),np.sin(2*np.pi/3), np.cos(2*np.pi/3),np.sin(-2*np.pi/3)]
-gamma = [8, 8, 8]
-t = 2
+v = [2,0, 1,1, 1,1.5]
+gamma = [8, 8, 8, 8]
+t = 5
 res = 500
 
 
@@ -35,6 +35,8 @@ a = solve_ivp(rhs, (0,t), v, t_eval=np.linspace(0,t,res))
 plt.figure()
 plt.plot(v[::2], v[1::2], 'o')
 for i in range(0, len(v), 2):
-    plt.plot(a.y[i], a.y[i+1])
+    plt.plot(a.y[i], a.y[i+1], linewidth=0.5)
 plt.axis('equal')
+plt.xlabel("x")
+plt.ylabel("y")
 plt.show()
