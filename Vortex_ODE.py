@@ -8,10 +8,11 @@ import numpy as np
 # t = time endpoint
 # res = Number of equally spaced time points
 
-v = [2,0, 1,1, 1,1.5]
-gamma = [8, 8, 8, 8]
-t = 5
-res = 500
+v = [1,0, np.cos(2*np.pi/3),np.sin(np.pi/3), 4*np.cos(np.pi/5), -np.sin(2*np.pi/3)]
+gamma = [8,8,8]
+t = 20
+res = 10000
+tarr = np.linspace(0,t,res)
 
 
 def rhs(s, v):
@@ -27,16 +28,21 @@ def rhs(s, v):
     return [item for sub in fn for item in sub]
 
 
-a = solve_ivp(rhs, (0,t), v, t_eval=np.linspace(0,t,res))
+a = solve_ivp(rhs, (0,t), v, t_eval=tarr)
 
 
 #Plot figure of paths
 
 plt.figure()
 plt.plot(v[::2], v[1::2], 'o')
-for i in range(0, len(v), 2):
-    plt.plot(a.y[i], a.y[i+1], linewidth=0.5)
+
+
+for i in  range(0, len(v), 2):
+    plt.scatter(a.y[i], a.y[i+1], linewidth=0.2, c=tarr , cmap=plt.cm.viridis , marker=".", s=4)
+plt.colorbar(plt.scatter(a.y[0], a.y[1], linewidth=0.2, c=tarr ,cmap=plt.cm.viridis , marker=".",s=4), shrink=0.8, label='t')
+
 plt.axis('equal')
 plt.xlabel("x")
 plt.ylabel("y")
 plt.show()
+
